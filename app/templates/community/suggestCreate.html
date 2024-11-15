@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건의사항 작성</title>
+    <link rel="stylesheet" href="/static/community/suggestCreate.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <h2>건의사항 작성</h2>
+        <form action="/community/suggestBoard/createPost" method="POST">
+            <div class="form-category">
+                <label for="category">분류:</label>
+                <select id="category" name="category" required>
+                    <option value="일반">일반</option>
+                    <option value="버그">버그</option>
+                    <option value="기능 요청">기능 요청</option>
+                    <option value="기타">기타</option>
+                </select>
+            </div>
+            <label for="title">제목:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+
+            <button type="submit">제출</button>
+        </form>
+
+
+        <a href="/community/suggestBoard">목록으로 이동하기</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

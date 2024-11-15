@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyPage</title>
+    <link rel="stylesheet" href="/static/etc/mypage.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section>
+        <h1>{{userInfo[1]}}님의 마이페이지</h1>
+        <h2>소개</h2>
+        <p>{{userInfo[3]}}</p>
+    </section>
+
+    <section id="user-write">
+        <h1>{{userInfo[1]}}님이 작성한 글</h1>
+        <section id="question">
+            <h2>질문글</h2>
+            {% for question in userQuestion%}
+            <div id="question-title">
+                {% if question[7]==0 %}
+                <h3>[미해결]{{question[2]}}</h3>
+                {%else%}
+                <h3>[해결]{{question[2]}}</h3>
+                {%endif%}
+            </div>
+            <p>{{question[3]}}</p>
+            {%endfor%}
+        </section>
+
+        <section id="promotion">
+            <h2>홍보글</h2>
+            {%for promotion in userPromotion %}
+            <h3>{{promotion[1]}}</h3>
+            <p>{{promotion[2]}}</p>
+            {%endfor%}
+        </section>
+
+        <section id="suggest">
+            <h2>건의사항</h2>
+            {%for suggestion in userSuggest %}
+            <h3>[{{suggestion[1]}}]{{suggestion[2]}}</h3>
+            <p>{{suggestion[3]}}</p>
+            {%endfor%}
+        </section>
+    </section>
+
+    <section id="user-comment">
+        <h1>{{userInfo[1]}}님이 작성한 댓글</h1>
+        <section id="noticeComment">
+            <h2>공지사항에 작성한 댓글</h2>
+            {%for comment in userNoticeComment%}
+            <h3>{{noticeTitle[comment[5]-1][1]}}</h3>
+            <p>RE: {{comment[2]}}</p>
+            {%endfor%}
+        </section>
+        <section id="questionComment">
+            <h2>질문글에 작성한 댓글</h2>
+            {%for comment in userQuestionComment%}
+            <h3>{{questionTitle[comment[5]-1][1]}}</h3>
+            <p>RE: {{comment[2]}}</p>
+            {%endfor%}
+        </section>
+        <section id="promotion-comment">
+            <h2>홍보글에 작성한 댓글</h2>
+            {% for comment in userPromotionComment %}
+            <h3>{{promotionTitle[comment[5]-1][1]}}</h3>
+            <p>RE: {{comment[2]}}</p>
+            {%endfor%}
+        </section>
+    </section>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

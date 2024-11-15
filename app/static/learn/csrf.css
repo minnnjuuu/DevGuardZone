@@ -1,0 +1,167 @@
+/* csrf.css */
+
+/* 기본 스타일 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header 스타일 */
+header {
+    width: 100%;
+    background-color: #021A4A;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+    padding: 5px 15px;
+
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+/* 메인 콘텐츠 스타일 */
+main {
+    display: flex;
+    max-width: 90%;
+    margin: 20px auto 20px 10px;
+    padding: 10px;
+}
+
+section {
+    border-bottom: 2px solid navy;
+    /* 남색 가로줄 추가 */
+    padding-bottom: 10px;
+    /* 가로줄과 내용 사이 간격 */
+    margin-bottom: 20px;
+    /* 다음 요소와의 간격 */
+}
+
+.content {
+    flex: 2;
+    padding-right: 20px;
+}
+
+.content h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.content section h2 {
+    font-size: 22px;
+    color: #1b3c71;
+    margin-bottom: 10px;
+}
+
+.content section p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.code-block {
+    background-color: #f4f4f4;
+    border-left: 5px solid #6a5acd;
+    overflow-x: auto;
+    border-radius: 5px;
+}
+
+.code-block pre {
+    margin: 5px;
+    padding-left: 15px;
+}
+
+.code-block code {
+    font-size: 1opx;
+    font-family: Consolas, monospace;
+}
+
+
+/* 사이드바 스타일 */
+.sidebar {
+    flex: 1;
+    border-left: 2px solid #6a5acd;
+    padding-left: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 10px 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+/* 링크 스타일 */
+a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 결론 섹션 스타일 */
+#conclusion {
+    margin-top: 40px;
+}
+
+#conclusion h2 {
+    font-size: 24px;
+    color: #1b3c71;
+    margin-bottom: 15px;
+}
+
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

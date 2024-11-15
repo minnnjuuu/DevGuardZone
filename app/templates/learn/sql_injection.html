@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection 소개 및 방어 방법</title>
+    <link rel="stylesheet" href="/static/learn/sql_injection.css">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <h1>01. SQL Injection</h1>
+            <section>
+                <h1>SQL이란?</h1>
+                <p>
+                    SQL(Structured Query Language)은 데이터베이스 관리 시스템에서 데이터를 조작하고 쿼리하기 위한 표준 프로그래밍 언어입니다.
+                    SQL을 사용하면 데이터베이스에 데이터를 추가, 수정, 삭제, 검색할 수 있습니다.
+                </p>
+                <h2>주요 SQL 명령어</h2>
+                <h3>1. SELECT</h3>
+                <p>
+                    SELECT 명령어는 데이터베이스에서 데이터를 조회하는 데 사용됩니다.
+                    예를 들어, 특정 테이블의 모든 데이터를 선택하려면 다음과 같은 쿼리를 사용할 수 있습니다:
+                </p>
+                <div class="code-block">
+                    <pre><code>SELECT * FROM users;
+                    </code></pre>
+                </div>
+                <h3>2. INSERT</h3>
+                <p>
+                    INSERT 명령어는 데이터베이스에 새로운 레코드를 추가하는 데 사용됩니다.
+                    예를 들어, 사용자를 추가하는 쿼리는 다음과 같습니다:
+                </p>
+                <div class="code-block">
+                    <pre><code>INSERT INTO users (username, email) VALUES ('newuser', 'newuser@example.com');
+                    </code></pre>
+                </div>
+                <h3>3. UPDATE</h3>
+                <p>
+                    UPDATE 명령어는 기존 레코드를 수정하는 데 사용됩니다.
+                    특정 사용자의 이메일을 변경하는 예시는 다음과 같습니다:
+                </p>
+                <div class="code-block">
+                    <pre><code>UPDATE users SET email = 'updated@example.com' WHERE username = 'newuser';
+                    </code></pre>
+                </div>
+                <h3>4. DELETE</h3>
+                <p>
+                    DELETE 명령어는 데이터베이스에서 레코드를 삭제하는 데 사용됩니다.
+                    특정 사용자를 삭제하는 쿼리는 다음과 같습니다:
+                </p>
+                <div class="code-block">
+                    <pre><code>DELETE FROM users WHERE username = 'newuser';
+                    </code></pre>
+                </div>
+                <h2>데이터베이스와 SQL</h2>
+                <p>
+                    데이터베이스는 데이터를 구조화하여 저장하는 시스템입니다. SQL은 데이터베이스와의 상호작용을
+                    위해 설계된 언어로, 다양한 데이터베이스 관리 시스템(RDBMS)에서 사용됩니다.
+                    일반적인 RDBMS로는 MySQL, PostgreSQL, Oracle, Microsoft SQL Server 등이 있습니다.
+                </p>
+            </section>
+            <br><br><br>
+            <section>
+                <h1>SQL Injection이란?</h1>
+                <p><strong>SQL Injection</strong>은 웹 애플리케이션의 보안 취약점 중 하나로, 공격자가 SQL 쿼리에 악의적인 코드를 삽입하여 데이터베이스를 조작하는
+                    공격
+                    기법입니다.
+                </p>
+                <p>이를통해, 공격자는 데이터베이스에서 민감한 정보를 조회하거나 삭제, 수정할 수 있습니다. SQL Injection은 잘못된 입력 처리로 인해 발생하며, 공격자는 URL, 폼, 쿠키와
+                    같은
+                    입력을 이용해 쿼리를 변조할 수 있습니다.</p>
+
+                <h2>SQL Injection 예시</h2>
+                <p>아래는 SQL Injection 공격의 기본적인 예시입니다. 사용자가 로그인할 때 다음과 같은 쿼리가 실행된다고 가정해봅시다:</p>
+                <div class="code-block">
+                    <pre>
+                        <code>
+SELECT * FROM users WHERE username = '사용자입력' AND password = '사용자입력';
+                        </code>
+                    </pre>
+                </div>
+
+                <p>여기에서 공격자는 비밀번호 대신 다음과 같은 입력을 시도할 수 있습니다:</p>
+                <div class="code-block">
+                    <pre>
+                        <code>
+' OR '1'='1
+                        </code>
+                    </pre>
+                </div>
+
+                <p>이 입력은 다음과 같은 쿼리를 만들어냅니다:</p>
+                <div class="code-block">
+                    <pre>
+                    <code>
+SELECT * FROM users WHERE username = '사용자입력' AND password = '' OR '1'='1';
+                    </code>
+                </pre>
+                </div>
+                <p>이 경우 항상 참이 되는 조건으로 인해 공격자는 비밀번호 없이 로그인할 수 있게 됩니다.</p>
+            </section>
+            <br><br><br>
+            <section>
+                <h1>SQL Injection 실습</h1>
+                <p>아래의 실습 페이지에서 SQL Injection 공격을 시도하고 방어하는 방법을 체험해보세요:</p>
+                <a href="/practice/sql_injection" class="pratice-move">SQL Injection 공격 실습</a>
+                <p>실습 페이지에서는 간단한 로그인 시스템을 기반으로 SQL Injection 공격을 시도하고, 이를 방어하는 방법을 학습할 수 있습니다. 방어 실습에서는 Prepared
+                    Statements를
+                    사용해
+                    공격을
+                    차단하는 방법을 다룹니다.
+                </p>
+            </section>
+            <br><br><br>
+            <section>
+                <h1>SQL Injection 방어 방법</h1>
+                <article>
+                    <h2><strong>1. Prepared Statements (준비된 구문)</strong></h2>
+                    <p>SQL 쿼리와 데이터 입력을 분리하여 사용자의 입력값이 SQL 구문으로 해석되지 않도록 합니다.</p>
+                    <p>거의 모든 현대적인 프로그래밍 언어와 데이터베이스 드라이버에서 지원됩니다.</p>
+                    <p>예시 구문(Python)</p>
+                    <div class="code-block">
+                        <pre>
+                        <code>
+query = "SELECT * FROM users WHERE username = %s"
+cursor.execute(query, (username,))
+                        </code>
+                    </pre>
+                    </div>
+                </article>
+
+                <article>
+                    <h2><strong>2. ORM (Object-Relational Mapping) 사용</strong></h2>
+                    <p>ORM을 사용하면 데이터베이스와 상호작용할 때 SQL 쿼리를 직접 작성할 필요가 없어져 인젝션 공격 가능성이 줄어듭니다.</p>
+                    <p>ORM은 SQL 쿼리를 내부적으로 생성하며, 적절한 인코딩 및 방어 메커니즘을 자동으로 적용합니다.</p>
+                </article>
+
+                <article>
+                    <h2><strong>3. 입력값 필터링 및 유효성 검사</strong></h2>
+                    <p>사용자 입력을 철저히 검증하여 허용된 형식의 데이터만 입력되도록 합니다. 예를 들어, 숫자만 허용되는 필드에 숫자만 입력되도록 검사합니다.</p>
+                    <p>예시 구문(Python)</p>
+                    <div class="code-block">
+                        <pre><code>
+username = input("Enter your username: ")
+if not re.match("^[a-zA-Z0-9_]*$", username):
+    raise ValueError("Invalid username. Only alphanumeric characters are allowed.")
+                        </code></pre>
+                    </div>
+                </article>
+
+                <article>
+                    <h2><strong>4. 최소 권한 원칙</strong></h2>
+                    <p>데이터베이스 사용자에게 최소한의 권한만 부여합니다.</p>
+                    <p>예를 들어,</p>
+                    <p> 1. SELECT 쿼리만 가능한 계정을 사용하는 것이 좋습니다.</p>
+                    <p> 2. 일반 사용자 계정에는 SELECT 권한만 부여하고, INSERT/UPDATE/DELETE 권한은 관리자에게만 부여합니다</p>
+                </article>
+                <br>
+            </section>
+            <br>
+            <section>
+                <h1>언어별 SQL Injection 시큐어코딩</h1>
+                <p>아래에서 언어를 선택하면 해당 언어의 SQL Injection 방어 기법을 확인할 수 있습니다.</p>
+
+                <div class="options-container">
+                    <div class="language-options">
+                        <label class="language-option">
+                            <input type="radio" name="language" id="python" onclick="showDefense('python')">
+                            Python
+                        </label>
+                        <label class="language-option">
+                            <input type="radio" name="language" id="php" onclick="showDefense('php')">
+                            PHP
+                        </label>
+                        <label class="language-option">
+                            <input type="radio" name="language" id="java" onclick="showDefense('java')">
+                            Java
+                        </label>
+                        <label class="language-option">
+                            <input type="radio" name="language" id="javascript" onclick="showDefense('javascript')">
+                            JavaScript
+                        </label>
+                    </div>
+                    <div class="defense-info-container">
+                        <!-- 선택된 언어별 설명 -->
+                        <div class="defense-info" id="pythonInfo">
+                            <!-- Python -->
+                            <section class="language-section">
+                                <h2>Python</h2>
+                                <h3>Prepared Statements (SQLite 예시)</h3>
+                                <p>
+                                    파이썬에서는 SQL 인젝션을 방지하기 위해 준비된 문(Prepared Statements)을 사용하는 것이 중요합니다.
+                                    이를 통해 사용자 입력을 쿼리의 일부로 처리하지 않고, 입력값을 별도로 처리하여 안전하게 쿼리를 실행할 수 있습니다.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>
+import sqlite3
+connection = sqlite3.connect("example.db")
+cursor = connection.cursor()
+
+# 사용자 입력값을 변수로 전달
+username = "user_input"
+password = "password_input"
+cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+</code></pre>
+                                </div>
+                            </section>
+
+                        </div>
+
+                        <div class="defense-info" id="phpInfo">
+                            <!-- PHP -->
+                            <section class="language-section">
+                                <h2>PHP</h2>
+                                <h3>Prepared Statements (PDO 예시)</h3>
+                                <p>
+                                    PHP에서는 PDO(php data object)를 사용하여 SQL 인젝션을 방지할 수 있습니다. Prepared Statements를 사용하면
+                                    쿼리와 입력값을 분리하여 안전하게 실행할 수 있습니다.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>
+<?php
+try {
+    $pdo = new PDO("mysql:host=localhost;dbname=mydb", "user", "password");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = :username AND password = :password");
+    $stmt->bindParam(':username', $username);
+    $stmt->bindParam(':password', $password);
+
+    // 사용자 입력값을 바인딩
+    $username = "user_input";
+    $password = "password_input";
+    $stmt->execute();
+} catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
+</code></pre>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="defense-info" id="javaInfo">
+                            <!-- Java -->
+                            <section class="language-section">
+                                <h2>Java</h2>
+                                <h3>Prepared Statements (JDBC 예시)</h3>
+                                <p>
+                                    Java에서는 JDBC를 사용하여 SQL 인젝션을 방지할 수 있습니다. PreparedStatement를 사용하면
+                                    입력값을 쿼리의 일부로 취급하지 않고, 파라미터화된 쿼리를 실행할 수 있습니다.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>
+import java.sql.*;
+
+public class SQLInjectionPrevention {
+    public static void main(String[] args) {
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "user", "password");
+        String query = "SELECT * FROM users WHERE username = ? AND password = ?";
+        PreparedStatement stmt = conn.prepareStatement(query);
+        stmt.setString(1, "user_input");
+        stmt.setString(2, "password_input");
+        ResultSet rs = stmt.executeQuery();
+    }
+}
+</code></pre>
+                                </div>
+                            </section>
+                        </div>
+
+                        <div class="defense-info" id="javascriptInfo">
+                            <!-- JavaScript -->
+                            <section class="language-section">
+                                <h2>JavaScript</h2>
+                                <h3>ORM(예: Sequelize) 사용</h3>
+                                <p>
+                                    JavaScript에서는 SQL 인젝션을 방지하기 위해 ORM(Object-Relational Mapping)을 사용할 수 있습니다.
+                                    ORM을 사용하면 직접 쿼리를 작성할 필요 없이, 데이터베이스와 안전하게 상호작용할 수 있습니다.
+                                </p>
+                                <div class="code-block">
+                                    <pre><code>
+const { User } = require('sequelize');
+
+// ORM을 사용하여 안전한 쿼리 작성
+User.findOne({ 
+    where: { username: 'user_input', password: 'password_input' } 
+}).then(user => {
+    console.log(user);
+});
+</code></pre>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+        <aside class="sidebar">
+            <ul>
+                <li>1. SQL 이란?</li>
+                <li>2. SQL Injection 이란?</li>
+                <li>3. SQL Injection 실습</li>
+                <li>4. SQL Injection 방어 방법</li>
+                <li>5. SQL Injection 언어별 시큐어코딩</li>
+                <br><br>
+                <a href="/learn">취약점 목록으로 돌아가기</a>
+
+            </ul>
+        </aside>
+    </main>
+    <script>
+        function showDefense(language) {
+            const defenseInfos = document.querySelectorAll('.defense-info');
+            defenseInfos.forEach(info => info.style.display = 'none');
+            const selectedInfo = document.getElementById(language + 'Info');
+            if (selectedInfo) {
+                selectedInfo.style.display = 'block';
+            } else {
+                alert("선택된 언어에 대한 정보가 없습니다.");
+            }
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

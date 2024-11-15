@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍보게시판 - DevGuard Zone</title>
+    <link rel="stylesheet" href="/static/community/promotionBoard.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main class="main-content">
+        <h1>홍보글</h1>
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>좋아요</th>
+                    <th>댓글</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for promotion in promotion %}
+                <tr>
+                    <input type="hidden" name="post_id" value="{{promotion[4]}}">
+                    <td><a href="/community/promotionBoard/{{promotion[4]}}">{{promotion[0]}}</a></td>
+                    <td>{{promotion[1]}}</td>
+                    <td>{{promotion[2]}}</td>
+                    <td>{{promotion[3]}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/community">커뮤니티로 돌아가기</a>
+
+    </main>
+    <a href="/community/promotionBoard/createPost" class="write-button">글 쓰기</a>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

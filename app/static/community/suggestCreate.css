@@ -1,0 +1,191 @@
+/* Reset 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 헤더 */
+.header-container {
+    background-color: #1A2C57;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.brand a {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.navbar li a:hover {
+    text-decoration: underline;
+}
+
+main {
+    justify-content: center;
+    align-items: center;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    margin-top: 3em;
+}
+
+
+/* 공지사항 작성 영역 */
+h2 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1A2C57;
+    margin: 20px 0;
+    text-align: center;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 분류 영역 */
+.form-category {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-category label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 10px;
+}
+
+/* Select 드롭다운 스타일 */
+form select#category {
+    width: 90%;
+    padding: 10px;
+    padding-right: 40px;
+    /* 화살표 아이콘 영역 확보 */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    background-color: white;
+    appearance: none;
+    /* 기본 화살표 제거 */
+    background-image: url('/static/img/keyboard_arrow_down.png');
+    /* 드롭다운 화살표 아이콘 */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    cursor: pointer;
+}
+
+form select#category:focus {
+    border-color: #1A2C57;
+    outline: none;
+}
+
+form label {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+form input[type="text"],
+form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+form textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #1A2C57;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #14233e;
+}
+
+/* 작성 완료 메시지 */
+.message {
+    color: green;
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+a {
+    display: block;
+    text-align: center;
+    font-size: 16px;
+    color: #1A2C57;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 푸터 */
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

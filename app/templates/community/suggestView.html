@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ suggest[2] }}</title>
+    <link rel="stylesheet" href="/static/community/suggestView.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <h2>{{ suggest[2] }}</h2>
+            <p>작성일: {{ suggest[5] }}</p>
+            <p>작성자: {{ suggest[4] }}</p>
+            <div>{{ suggest[3] }}</div>
+        </article>
+        {% if user=="admin" %}
+        <section id="createComment">
+            <form action="/community/suggestBoard/createComment" method="POST" class="comment-form">
+                <input type="hidden" name="post_id" value="{{ suggest[0] }}">
+                <p>답변 입력</p>
+                <textarea name="content" rows="3" placeholder="답변을 입력하세요" required></textarea>
+                <button type="submit" id="comment-submit">답변 작성</button>
+            </form>
+        </section>
+        {%endif%}
+        <section id="comments">
+            <p>
+                <strong>관리자 답변</strong>
+            </p>
+            {%if suggest[6]%}
+            <div class="comment">
+                <p>{{ suggest[6] }}</p>
+                <p>답변 시간: {{ suggest[7] }}</p>
+            </div>
+            {%endif%}
+        </section>
+
+        <a href="/community/suggestBoard">건의사항 목록 보기</a>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

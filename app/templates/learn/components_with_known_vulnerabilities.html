@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알려진 취약점이 있는 컴포넌트 사용 (Using Components with Known Vulnerabilities)</title>
+    <link rel="stylesheet" href="/static/learn/components_with_known_vulnerabilities.css">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <h1>8. Using Components with Known Vulnerabilities 취약점</h1>
+            <section id="intro">
+                <h2>개요</h2>
+                <p>이 취약점은 업데이트되지 않은 소프트웨어, 라이브러리, 프레임워크 등 외부 컴포넌트를 사용하는 경우 발생합니다. 이러한 취약점을 악용한 공격자가 시스템에 접근하거나 데이터를 탈취할
+                    수
+                    있습니다.</p>
+            </section>
+
+            <section id="risks">
+                <h2>영향</h2>
+                <p>이 취약점이 악용되면 다음과 같은 심각한 피해를 초래할 수 있습니다:</p>
+                <ul>
+                    <li>시스템 침해: 공격자가 취약한 구성 요소를 통해 시스템에 접근할 수 있습니다.</li>
+                    <li>데이터 유출: 민감한 데이터가 유출될 수 있습니다.</li>
+                    <li>서비스 중단: 시스템이 손상되어 서비스가 중단될 수 있습니다.</li>
+                    <li>평판 손상: 기업이나 기관의 신뢰도가 하락할 수 있습니다.</li>
+                </ul>
+            </section>
+
+            <section id="examples">
+                <h2>구체적인 사례 및 예방 방법</h2>
+                <ul>
+                    <li>
+                        <strong>Log4j 취약점:</strong>
+                        <p>2021년에 발견된 Log4Shell 취약점은 널리 사용되는 Java 로깅 라이브러리 Log4j에서 발생했습니다. 이 취약점을 통해 공격자는 악성 코드를 원격에서
+                            실행할 수
+                            있었고, 전 세계의 여러 시스템이 이에 영향을 받았습니다.</p>
+                        <p><em>예방 방법:</em> Log4j의 최신 패치를 즉시 적용하고, 버전 관리 시스템을 통해 해당 라이브러리의 최신 상태를 정기적으로 확인하여 업데이트하는 것이
+                            중요합니다.
+                            또한, 가능하면 최신 버전의 Log4j2로 업그레이드하는 것을 권장합니다.</p>
+                    </li>
+                    <li>
+                        <strong>jQuery 취약점:</strong>
+                        <p>jQuery 1.7.2 버전에는 Cross-Site Scripting (XSS) 취약점이 포함되어 있었으며, 이를 통해 공격자는 웹사이트에 악성 스크립트를 삽입할 수
+                            있었습니다. 많은 웹사이트가 오래된 버전을 사용하여 이 취약점에 노출되었습니다.</p>
+                        <p><em>예방 방법:</em> 최신 버전의 jQuery로 업데이트하고, XSS 방어를 위해 HTML 요소에 직접적으로 데이터를 삽입할 때 데이터가 올바르게 인코딩되었는지
+                            확인합니다. 또한, 불필요한 jQuery 의존성을 줄이거나 제거하는 것도 좋은 방법입니다.</p>
+                    </li>
+                    <li>
+                        <strong>Apache Struts 취약점:</strong>
+                        <p>2017년 Apache Struts2에서 발견된 원격 코드 실행 취약점은 Equifax 해킹 사건에 악용되어, 1억 4천만 명 이상의 미국 시민의 개인 정보가 유출되는
+                            대형
+                            사고가 발생했습니다.</p>
+                        <p><em>예방 방법:</em> Apache Struts의 최신 버전을 사용하고, Apache의 보안 업데이트를 정기적으로 확인하여 적용하는 것이 필수적입니다. 또한,
+                            Apache Struts에서 사용하지 않는 기능이나 플러그인을 비활성화하여 공격 표면을 줄입니다.</p>
+                    </li>
+                    <li>
+                        <strong>OpenSSL Heartbleed 취약점:</strong>
+                        <p>2014년 OpenSSL의 Heartbleed 버그는 SSL 통신에서 사용되는 메모리를 읽어올 수 있는 심각한 취약점이었습니다. 이 취약점을 악용한 공격자는 암호,
+                            개인 정보 등을 탈취할 수 있었습니다.</p>
+                        <p><em>예방 방법:</em> OpenSSL 버전을 1.0.1g 이상의 최신 버전으로 업데이트하여 이 문제를 해결해야 합니다. 또한 SSL 인증서를 주기적으로 갱신하고,
+                            보안 점검을 강화하여 잠재적인 위험 요소를 파악합니다.</p>
+                    </li>
+                    <li>
+                        <strong>Drupalgeddon 취약점:</strong>
+                        <p>2018년 Drupal CMS에서 발견된 Drupalgeddon 2 취약점은 원격 코드 실행을 가능하게 했으며, 이를 통해 공격자가 서버에 악성 코드를 실행할 수
+                            있었습니다. 이로 인해 여러 웹사이트가 데이터 유출 및 변조에 노출되었습니다.</p>
+                        <p><em>예방 방법:</em> Drupal의 최신 보안 패치를 적용하고, 주기적으로 CMS 시스템을 점검하여 잠재적인 보안 위협을 사전에 파악합니다. 또한 권한 관리를
+                            통해 외부 사용자의 무단 접근을 제한합니다.</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="prevention">
+                <h2>예방 방법</h2>
+                <p>
+                    Using Components with Known Vulnerabilities 는 사용 중인 라이브러리나 프레임워크가 알려진 취약점을 가지고 있는 경우 발생하는 보안 문제입니다.
+                    이는 종종 코드 재사용 및 서드파티 라이브러리를 사용하는 경우에 발생할 수 있습니다. 이러한 취약점을 방지하기 위해서는 여러 가지 방법을 적용해야 합니다.
+                </p>
+
+                <h3>1. 최신 버전 사용</h3>
+                <p>
+                    취약점이 발견된 라이브러리나 프레임워크는 개발자들에 의해 패치가 이루어집니다. 따라서, 사용 중인 컴포넌트의 최신 버전을 항상 사용하여 알려진 취약점을 방지해야 합니다. 패치가
+                    적용된 버전을 사용하면 공격자가 이미 알려진 취약점을 이용할 가능성을 줄일 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# Python에서 최신 버전 라이브러리 설치
+pip install --upgrade <library_name>
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위와 같이 패키지 관리 도구를 사용하여 최신 버전으로 라이브러리를 업그레이드할 수 있습니다. 이를 통해 알려진 취약점이 수정된 버전을 적용할 수 있습니다.
+                </p>
+
+                <h3>2. 의존성 관리 도구 사용</h3>
+                <p>
+                    라이브러리나 프레임워크의 의존성을 관리하는 도구를 사용하여, 프로젝트에 포함된 모든 의존성의 보안 상태를 모니터링해야 합니다. 도구들은 취약점이 있는 버전을 감지하고 경고를
+                    제공합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# Python에서 'safety'를 사용하여 의존성 취약점 점검
+pip install safety
+safety check
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 명령어는 `safety` 도구를 사용하여 프로젝트의 의존성에서 취약점이 있는 버전을 확인할 수 있습니다. 이를 통해 취약점을 사전에 점검하고 패치된 버전으로 대체할 수
+                    있습니다.
+                </p>
+
+                <h3>3. 취약점 데이터베이스 확인</h3>
+                <p>
+                    각종 취약점 데이터베이스(NVD, CVE 등)를 주기적으로 확인하여 사용 중인 컴포넌트에서 발견된 취약점에 대한 정보를 얻을 수 있습니다. 이를 통해, 사용 중인 라이브러리가
+                    취약점을 포함하고 있는지 확인하고, 업데이트하거나 대체할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# NVD에서 취약점 검색
+# https://nvd.nist.gov/에서 사용하는 라이브러리의 CVE를 검색
+                </code>
+                </pre>
+                </div>
+                <p>
+                    각종 취약점 데이터베이스를 통해 컴포넌트의 최신 취약점 정보를 쉽게 확인할 수 있습니다.
+                </p>
+
+                <h3>4. 보안 감사 도구 사용</h3>
+                <p>
+                    프로젝트에 포함된 모든 서드파티 라이브러리 및 의존성에 대해 보안 감사를 수행하는 도구를 사용해야 합니다. 이러한 도구들은 라이브러리에서 발견된 보안 취약점을 자동으로 검출하고
+                    경고를 제공합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# npm audit (Node.js 프로젝트)
+npm audit
+                </code>
+                </pre>
+                </div>
+                <p>
+                    `npm audit` 명령어는 프로젝트에 포함된 Node.js 의존성에서 취약점을 자동으로 점검합니다. 이처럼 자동화된 감사 도구를 사용하면 취약점을 빠르게 식별하고 수정할 수
+                    있습니다.
+                </p>
+
+                <h2>5. 컴포넌트 대체</h2>
+                <p>
+                    사용 중인 컴포넌트가 더 이상 지원되지 않거나 취약점이 발견되었지만 업데이트가 이루어지지 않는 경우, 더 안전하고 활발히 유지 관리되는 대체 라이브러리를 찾는 것이 좋습니다. 이를
+                    통해 보안 리스크를 최소화할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 오래된 라이브러리에서 새로운 라이브러리로 교체
+# ex)오래된 Flask 버전에서 새로운 버전으로 업그레이드
+pip install --upgrade flask
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위처럼 오래된 라이브러리나 프레임워크를 최신으로 업그레이드하거나, 대체 라이브러리를 찾는 것이 보안 취약점을 방지하는 데 도움이 됩니다.
+                </p>
+
+                <h3>6. 최소 권한 원칙 적용</h3>
+                <p>
+                    사용하는 라이브러리나 컴포넌트가 취약점을 가지고 있을 가능성을 고려하여, 최소 권한 원칙을 적용해야 합니다. 이를 통해 만약 취약점이 악용되더라도 피해를 최소화할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 최소 권한을 설정하는 권한 관리
+# 서버에서 민감한 데이터에 접근할 때 필요한 권한만을 부여
+                </code>
+                </pre>
+                </div>
+                <p>
+                    서버에서 민감한 데이터에 접근할 때 필요한 권한만을 부여하여, 공격자가 취약점을 악용하더라도 피해를 줄일 수 있습니다.
+                </p>
+            </section>
+        </div>
+        <aside class="sidebar">
+            <ul>
+                <li>1. 취약점 소개</li>
+                <li>2. 주요 영향</li>
+                <li>3. 예시</li>
+                <li>4. 예방 방법</li>
+            </ul>
+            <br><br>
+            <a href="/learn">취약점 목록으로 돌아가기</a>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,187 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+/* Header 스타일 */
+header {
+    width: 100%;
+    background-color: #021A4A;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+    padding: 5px 15px;
+
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+/* Community Board 섹션 */
+.community-board {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 카테고리 헤더 */
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.category-header h2 {
+    font-size: 24px;
+    color: #333;
+}
+
+.category-header p {
+    color: #666;
+    font-size: 14px;
+}
+
+.category-header a img {
+    width: 30px;
+    height: 30px;
+}
+
+/* 공지사항 게시물 리스트 */
+.post-list {
+    margin-bottom: 20px;
+}
+
+.post-list h3 {
+    font-size: 20px;
+    color: #2c3e50;
+}
+
+.post-list h3 a {
+    text-decoration: none;
+    color: #2c3e50;
+}
+
+.post-list h3 a:hover {
+    text-decoration: underline;
+}
+
+.post-list p {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.post-list hr {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* 각 카테고리 섹션 */
+.category-section {
+    margin-bottom: 40px;
+}
+
+.category-section .category-header {
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.category-section .post-list {
+    list-style: none;
+}
+
+.category-section .post-list li {
+    margin-bottom: 15px;
+}
+
+.category-section .post-list li a {
+    text-decoration: none;
+    color: #2980b9;
+    font-size: 16px;
+}
+
+.category-section .post-list li a:hover {
+    text-decoration: underline;
+}
+
+.category-section .post-list li span {
+    font-size: 12px;
+    color: #7f8c8d;
+}
+
+/* 버튼 스타일 */
+button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #3498db;
+}
+
+.addLogo {
+    cursor: pointer;
+}
+
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>질문글 작성</title>
+    <link rel="stylesheet" href="/static/community/questionCreate.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <h2>질문글 작성</h2>
+        <form action="/community/questionBoard/createQuestion" method="POST">
+            <label for="title">제목</label>
+            <input type="text" name="title" required>
+            <br>
+            <label for="content">내용</label>
+            <textarea name="content" required></textarea>
+            <br>
+            <button type="submit">작성</button>
+        </form>
+        <a href="/community/questionBoard">목록으로 이동하기</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Board</title>
+    <link rel="stylesheet" href="/static/community/community.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/mypage">MyPage</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 질문, 공지, 건의사항, 홍보-->
+    <div class="community-board">
+        <!-- 공지사항 Section -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>공지사항<a href="/community/noticeBoard"><img src="/static/img/addLogo.png" class="addLogo"
+                            alt="addLogo"></a></h2>
+                <p>DevGuard Zone의 중요 공지사항을 확인하세요.</p>
+            </div>
+            {% for notice in recent_notices %}
+            <div class="post-list">
+                <h3><a href="/community/noticeBoard/{{notice[4]}}">{{ notice[0] }}</a></h3> <!-- 제목 -->
+                <p>좋아요: {{ notice[1] }}</p> <!-- 좋아요 수 -->
+                <p>댓글 수: {{ notice[2] }}</p> <!-- 댓글 수 -->
+                <p>작성일 : {{ notice[3] }}</p> <!--작성일-->
+            </div>
+            <hr>
+            {% endfor %}
+        </section>
+
+        <!-- 질문 & 답변 Section -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>질문글<a href="/community/questionBoard"><img src="/static/img/addLogo.png" class="addLogo"
+                            alt="addLogo"></a></h2>
+                <p>궁금했던 점을 물어보세요</p>
+            </div>
+            {% for question in recent_question %}
+            <div class="post-list">
+                <h3><a href="/community/questionBoard/{{question[0]}}">{{ question[1] }}</a></h3> <!-- 제목 -->
+                <p>좋아요: {{ question[2] }}</p> <!-- 좋아요 수 -->
+                <p>댓글 수: {{ question[3] }}</p> <!-- 댓글 수 -->
+                <p>작성일 : {{ question[4] }}</p> <!--작성일-->
+            </div>
+            <hr>
+            {% endfor %}
+        </section>
+
+
+        <!-- 홍보 Section -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>홍보<a href="/community/promotionBoard"><img src="/static/img/addLogo.png" class="addLogo"
+                            alt="addLogo"></a></h2>
+                <p>개발 & 보안관련 소식을 공유해주세요</p>
+            </div>
+            {% for promotion in recent_promotion %}
+            <div class="post-list">
+                <h3><a href="/community/promotionBoard/{{promotion[0]}}">{{promotion[1]}}</a></h3>
+                <p>좋아요: {{promotion[2]}}</p>
+                <p>댓글: {{promotion[3]}}</p>
+                <p>작성일: {{promotion[4]}}</p>
+            </div>
+            <hr>
+            {%endfor%}
+        </section>
+
+        <!-- 건의 Section -->
+        <section class="category-section">
+            <div class="category-header">
+                <h2>건의사항<a href="/community/suggestBoard"><img src="/static/img/addLogo.png" class="addLogo"
+                            alt="addLogo"></a></h2>
+                <p>DevGuard Zone의 건의사항(불편한 부분, 더 심화되었으면 좋겠는 부분), 오탈자 등을 알려주세요</p>
+            </div>
+            {% for suggest in recent_suggest %}
+            <div class="post-list">
+                <h3><a href="/community/suggestBoard/{{suggest[3]}}">{{suggest[0]}}</a></h3>
+                <p>작성 시간 : {{suggest[1]}}</p>
+                <p>답변 시간 : {{suggest[2]}}</p>
+            </div>
+            <hr>
+            {% endfor %}
+        </section>
+    </div>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

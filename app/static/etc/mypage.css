@@ -1,0 +1,177 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #2f3550;
+    padding: 15px 20px;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid white;
+}
+
+
+
+.brand {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.brand a {
+    color: white;
+    text-decoration: none;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #1a73e8;
+}
+
+
+/* 섹션 스타일 */
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+section h1 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+    color: black;
+}
+
+section h2 {
+    font-size: 1.4em;
+    margin-top: 20px;
+    color: #333;
+}
+
+section p {
+    font-size: 1em;
+    margin: 10px 0;
+}
+
+/* 작성한 글, 댓글 섹션 */
+#user-write,
+#user-comment {
+    margin-top: 30px;
+}
+
+#user-write h1,
+#user-comment h1 {
+    color: black;
+    margin-bottom: 10px;
+}
+
+#user-write h2,
+#user-comment h2 {
+    color: #333;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+/* 글 및 댓글 리스트 */
+#question,
+#promotion,
+#suggest,
+#noticeComment,
+#questionComment,
+#promotion-comment {
+    margin-top: 10px;
+}
+
+#question-title h3,
+#promotion h3,
+#suggest h3,
+#noticeComment h3,
+#questionComment h3,
+#promotion-comment h3 {
+    font-size: 1.2em;
+    color: #444;
+    margin-bottom: 5px;
+}
+
+#question-title p,
+#promotion p,
+#suggest p,
+#noticeComment p,
+#questionComment p,
+#promotion-comment p {
+    color: #555;
+    font-size: 1em;
+    padding-left: 15px;
+}
+
+/* 댓글 스타일 */
+#user-comment p {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+/* 미디어 쿼리 */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar li {
+        margin: 10px 0;
+    }
+
+    section {
+        padding: 15px;
+    }
+}
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Broken Authentication</title>
+    <link rel="stylesheet" href="/static/learn/broken_authentication.css"> <!-- 필요한 CSS 파일 경로 -->
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <h1>6. Broken Authentication</h1>
+            <section>
+                <h2>Broken Authentication 이란?</h2>
+                <p>Broken Authentication은 인증 메커니즘이 제대로 구현되지 않아 공격자가 사용자 계정을 탈취하거나 시스템에 무단으로 접근할 수 있는 취약점을 말합니다. 이는 주로
+                    비밀번호 관리, 세션 관리, 인증 토큰 처리 등의 문제로 인해 발생합니다.</p>
+            </section>
+
+            <section>
+                <h2>Broken Authentication 주요 원인</h2>
+                <p>Broken Authentication의 주요 원인은 다음과 같습니다:</p>
+                <ul>
+                    <li><strong>약한 비밀번호 정책:</strong> 사용자가 쉽게 추측할 수 있는 비밀번호를 사용할 때 발생합니다.</li>
+                    <li><strong>비밀번호 재사용:</strong> 여러 사이트에서 동일한 비밀번호를 사용할 때 발생합니다.</li>
+                    <li><strong>비밀번호 저장 방식:</strong> 비밀번호를 평문으로 저장하거나 약한 해시 알고리즘을 사용할 때 발생합니다.</li>
+                    <li><strong>세션 관리 취약점:</strong> 세션 ID가 예측 가능하거나 쉽게 탈취될 수 있을 때 발생합니다.</li>
+                    <li><strong>인증 토큰 관리:</strong> 인증 토큰이 안전하게 저장되지 않거나 전송 중에 보호되지 않을 때 발생합니다.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Broken Authentication 예시</h2>
+
+
+                <h3>1. 약한 비밀번호 정책</h3>
+                <p>
+                    약한 비밀번호 정책을 허용하면 공격자가 쉽게 계정을 탈취할 수 있습니다. 예를 들어, 아래 코드에서는 비밀번호의 최소 길이만 체크하여 너무 간단한 비밀번호가 허용되는 상황을
+                    보여줍니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 약한 비밀번호 정책 예시 (Python)
+def is_valid_password(password):
+    return len(password) >= 6  # 최소 길이만 체크
+
+# 사용 예시
+password = "123456"  # 약한 비밀번호
+if is_valid_password(password):
+    print("비밀번호가 유효합니다.")
+else:
+    print("비밀번호가 유효하지 않습니다.")
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서 비밀번호는 최소 6자리만 요구됩니다. 이는 공격자가 쉽게 추측할 수 있는 약한 비밀번호를 허용하여 인증이 우회될 가능성을 높입니다.
+                </p>
+
+                <h3>2. 세션 고정(Session Fixation)</h3>
+                <p>
+                    세션 고정 공격은 사용자의 세션 ID가 공격자에 의해 설정된 경우, 공격자가 세션을 탈취할 수 있는 상황을 발생시킵니다. 다음 예시는 Flask 웹 애플리케이션에서 세션 고정
+                    공격이 가능한 코드입니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 세션 고정 예시 (Python/Flask)
+from flask import Flask, session, request
+
+app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
+@app.route("/login", methods=["POST"])
+def login():
+    session_id = request.args.get("session_id")  # 공격자가 전달한 세션 ID
+    if session_id:
+        session["user_id"] = session_id  # 세션 고정 취약점 발생
+    return "Logged in"
+
+if __name__ == "__main__":
+    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서 <code>/login</code> 경로로 접속할 때, 세션 ID를 직접 입력할 수 있어 공격자가 세션 ID를 고정하고 사용자의 세션을 탈취할 수 있습니다.
+                </p>
+
+                <h3>3. 세션 만료 처리 부족</h3>
+                <p>
+                    세션 만료 처리가 제대로 구현되지 않으면 공격자는 세션이 오래 지속되는 동안 인증된 상태로 유지되어 민감한 정보를 탈취할 수 있습니다. 아래는 세션 만료 처리가 없는 예시입니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 세션 만료 처리 부족 예시 (Python/Flask)
+from flask import Flask, session
+
+app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
+@app.route("/account")
+def account():
+    if "user" in session:
+        return "사용자 계정 정보"
+    else:
+        return "로그인이 필요합니다."
+
+if __name__ == "__main__":
+    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 세션 만료 시간을 설정하지 않아, 사용자는 영구적으로 로그인된 상태를 유지할 수 있습니다. 이로 인해 공격자가 세션을 탈취하면 장시간 인증된 상태를 유지하게 됩니다.
+                </p>
+            </section>
+
+            <section>
+                <h2>Broken Authentication 공격 벡터</h2>
+                <p>Broken Authentication 취약점을 악용하는 공격 벡터는 다양합니다. 주요 공격 벡터는 다음과 같습니다:</p>
+                <ul>
+                    <li><strong>크리덴셜 스터핑:</strong> 공격자가 탈취된 사용자명과 비밀번호를 사용하여 여러 사이트에 무차별 대입 공격을 시도합니다.</li>
+                    <li><strong>브루트 포스 공격:</strong> 공격자가 가능한 모든 비밀번호 조합을 시도하여 계정에 접근합니다.</li>
+                    <li><strong>세션 하이재킹:</strong> 공격자가 사용자의 세션 ID를 탈취하여 해당 사용자의 세션을 가로챕니다.</li>
+                    <li><strong>피싱:</strong> 공격자가 사용자를 속여 인증 정보를 입력하게 하여 이를 탈취합니다.</li>
+                    <li><strong>중간자 공격:</strong> 공격자가 통신을 가로채어 인증 정보를 탈취합니다.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Broken Authentication 예방 방법</h2>
+                <p>
+                    Broken Authentication을 방지하기 위해 각 취약점에 대한 방어 방법을 설명하고, 보완된 코드 예시를 제공합니다.
+                </p>
+
+                <h3>1. 강력한 비밀번호 정책 구현</h3>
+                <p>
+                    사용자 계정 보안을 강화하려면 비밀번호 정책을 강화하여 단순한 비밀번호 사용을 제한해야 합니다. 아래 코드는 비밀번호가 최소 8자리 이상, 대문자, 소문자, 숫자, 특수 문자를
+                    포함하도록 조건을 강화한 예시입니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 강력한 비밀번호 정책 예시 (Python)
+import re
+
+def is_strong_password(password):
+    if (len(password) >= 8 and
+        re.search(r"[A-Z]", password) and
+        re.search(r"[a-z]", password) and
+        re.search(r"[0-9]", password) and
+        re.search(r"[!@#$%^&*()_+]", password)):
+        return True
+    return False
+
+# 사용 예시
+password = "StrongPass1!"
+if is_strong_password(password):
+    print("비밀번호가 유효합니다.")
+else:
+    print("비밀번호가 유효하지 않습니다.")
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 비밀번호가 최소 8자리 이상이며, 대문자, 소문자, 숫자, 특수 문자를 포함해야 유효하도록 설정했습니다. 이로 인해 약한 비밀번호가 허용되지 않아 보안을 강화할 수
+                    있습니다.
+                </p>
+
+                <h3>2. 세션 고정 공격 방지</h3>
+                <p>
+                    세션 고정 공격을 방지하려면 로그인 시마다 새로운 세션 ID를 할당하고, 이전 세션을 무효화해야 합니다. 아래는 Flask에서 로그인 시 세션을 재생성하는 예시입니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 세션 고정 방지 예시 (Python/Flask)
+from flask import Flask, session, request, redirect, url_for
+from werkzeug.security import check_password_hash
+
+app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form.get("username")
+    password = request.form.get("password")
+    
+    # 사용자 인증 로직 (가정)
+    if username == "user" and check_password_hash("hashed_password", password):
+        session.clear()  # 기존 세션 제거
+        session["user_id"] = username  # 새로운 세션 생성
+        return redirect(url_for("account"))
+    return "로그인 실패"
+
+if __name__ == "__main__":
+    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서 사용자가 로그인할 때 <code>session.clear()</code>로 기존 세션을 제거하고, 새로운 세션 ID를 발급받도록 하여 세션 고정 공격을 방지합니다.
+                </p>
+
+                <h3>3. 세션 만료 시간 설정</h3>
+                <p>
+                    세션 만료 시간을 설정하여 오랜 시간 동안 세션이 유효하지 않도록 해야 합니다. 아래는 Flask에서 세션 만료 시간을 설정하는 예시입니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 세션 만료 시간 설정 예시 (Python/Flask)
+from flask import Flask, session, timedelta
+
+app = Flask(__name__)
+app.secret_key = 'supersecretkey'
+app.permanent_session_lifetime = timedelta(minutes=30)  # 세션 만료 시간 30분 설정
+
+@app.route("/login", methods=["POST"])
+def login():
+    session.permanent = True  # 세션을 영구적으로 설정하여 만료 시간 적용
+    session["user_id"] = "user_id_value"
+    return "로그인 완료"
+
+@app.route("/account")
+def account():
+    if "user_id" in session:
+        return "사용자 계정 정보"
+    return "로그인이 필요합니다."
+
+if __name__ == "__main__":
+    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서 <code>app.permanent_session_lifetime</code>을 사용하여 세션 만료 시간을 30분으로 설정하고,
+                    <code>session.permanent = True</code>를 통해 만료 시간이 적용되도록 했습니다. 이렇게 하면 일정 시간이 지나면 세션이 자동으로 만료됩니다.
+                </p>
+
+                <h2>4. 기타 방어 방법</h2>
+                <ul>
+                    <li><strong>2FA(이중 인증)</strong>을 사용하여 계정 보안을 강화합니다.</li>
+                    <li><strong>로그인 시도 제한</strong>을 통해 비밀번호 추측 공격을 방지합니다.</li>
+                    <li><strong>HTTPOnly 및 Secure 플래그를 적용</strong>하여 세션 쿠키가 스크립트로 접근되거나 HTTPS를 통해서만 전송되도록 설정합니다.</li>
+                </ul>
+
+            </section>
+
+
+            <section id="conclusion">
+                <h2>결론</h2>
+                <p>Broken Authentication은 매우 위험한 취약점으로, 적절한 보안 조치가 필요합니다. 강력한 인증 및 세션 관리 체계를 통해 이 취약점을 예방할 수 있습니다.</p>
+            </section>
+
+        </div>
+        <aside class="sidebar">
+            <ul>
+                <li>1. 취약점 소개</li>
+                <li>2. 주요 원인</li>
+                <li>3. 예시</li>
+                <li>4. 공격 벡터</li>
+                <li>5. 예방 방법</li>
+                <br><br>
+                <a href="/learn">취약점 목록으로 돌아가기</a>
+            </ul>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

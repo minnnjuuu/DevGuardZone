@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{question[1]}}</title>
+    <link rel="stylesheet" href="/static/community/questionView.css">
+</head>
+<script>
+    function likePost(postId) {
+        fetch('/community/questionBoard/likeQuestion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: postId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 좋아요 증가 후, 화면에 반영
+                    let likeCount = document.getElementById('like-count');
+                    likeCount.innerText = data.new_like_count;
+                } else {
+                    alert('좋아요 처리에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function likeComment(commentId) {
+        fetch('/community/questionBoard/likeQuestionComment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment_id: commentId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 좋아요 수 업데이트
+                    let likeCount = document.getElementById(`comment-like-${commentId}`);
+                    likeCount.innerText = data.new_like_count;
+                } else {
+                    alert('좋아요 증가에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            {%if question[7] == 1%}
+            <h2>[해결 완료]{{question[2]}}</h2>
+            {%else%}
+            <h2>[미해결]{{question[2]}}</h2>
+            {% endif %}
+            <p>작성일: {{question[4]}}</p>
+            <p>작성자: {{question[1]}}</p>
+            <div>{{question[3]}}</div>
+            <p class="like-click">
+                <button id="like-button" onclick="likePost('{{question[0]}}')">좋아요</button>
+                좋아요 수: <span id="like-count">{{ question[5] }}</span> | 댓글 수: <span id="comment-count">{{ question[6]
+                    }}</span>
+            </p>
+        </article>
+
+        <section id="createComment">
+            <form action="/community/questionBoard/createComment" method="POST" class="comment-form">
+                <input type="hidden" name="post_id" value="{{question[0]}}">
+                <textarea name="content" rows="3" placeholder="댓글을 입력하세요" required></textarea>
+                <button type="submit" id="comment-submit">댓글 작성</button>
+            </form>
+        </section>
+
+        <section id="comments">
+            <h3>댓글</h3>
+            {% for comment in comment %}
+            <div class="comment">
+                <p>작성자:{{comment[1]}}</p>
+                <p>내용: {{comment[2]}}</p>
+                <p>작성일: {{comment[3]}}</p>
+                <p class="like-click">
+                    <button id="like-button" onclick="likeComment('{{ comment[0] }}'); return false;">좋아요</button>
+                    좋아요 수: <span id="comment-like-{{comment[0]}}">{{ comment[4] }}</span>
+                </p>
+            </div>
+            {%endfor%}
+        </section>
+    </main>
+    {% if user == question[1] and question[7]==0 %}
+    <form action="/community/questionBoard/solved" method="POST" class="change-is-solved">
+        <input type="hidden" name="post_id" value="{{question[0]}}">
+        <button type="submit" id="solved-button">질문 해결</button>
+    </form>
+    {% endif %}
+</body>
+
+</html>

@@ -1,0 +1,127 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* 헤더 스타일 */
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #021a4a;
+    /* 헤더 배경색 */
+    color: #fff;
+    /* 헤더 텍스트 색상 */
+}
+
+.header-container .brand a {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.navbar {
+    list-style: none;
+}
+
+.navbar li {
+    display: inline;
+    margin-left: 20px;
+}
+
+.navbar a {
+    color: #fff;
+    /* 내비게이션 링크 색상 */
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.main-content {
+    padding: 2rem;
+}
+
+.main-content h1 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 0.5rem;
+}
+
+.board-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+.board-table thead tr {
+    background-color: #f4f6f8;
+}
+
+.board-table th,
+.board-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.board-table th {
+    font-weight: bold;
+}
+
+
+
+.board-table td span {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* 글쓰기 버튼 스타일 */
+.write-button {
+    position: fixed;
+    top: 90px;
+    /* 상단에서의 위치 */
+    right: 30px;
+    /* 우측에서의 위치 */
+    padding: 10px 20px;
+    background-color: #021a4a;
+    /* 버튼 색상 */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.write-button:hover {
+    background-color: #5c6bc0;
+    /* 호버 시 버튼 색상 */
+}
+
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: auto;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{promotion[1]}}</title>
+    <link rel="stylesheet" href="/static/community/promotionView.css">
+</head>
+
+<script>
+    function likePost(postId) {
+        fetch('/community/promotionBoard/likePost', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: postId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 좋아요 증가 후, 화면에 반영
+                    let likeCount = document.getElementById('like-count');
+                    likeCount.innerText = data.new_like_count;
+                } else {
+                    alert('좋아요 처리에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+    function likeComment(commentId) {
+        fetch('/community/promotionBoard/likePostComment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ comment_id: commentId })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // 좋아요 수 업데이트
+                    let likeCount = document.getElementById(`comment-like-${commentId}`);
+                    likeCount.innerText = data.new_like_count;
+                } else {
+                    alert('좋아요 증가에 실패했습니다.');
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+</script>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <article>
+            <h2>{{promotion[1]}}</h2>
+            <p>작성일: {{promotion[5]}}</p>
+            <p>작성자: {{promotion[3]}}</p>
+            <div>{{promotion[2]}}</div>
+            <p class="like-click">
+                <button id="like-button" onclick="likePost('{{promotion[0]}}')">좋아요</button>
+                좋아요 수: <span id="like-count">{{ promotion[7] }}</span> | 댓글 수: <span id="comment-count">{{ promotion[6]
+                    }}</span>
+            </p>
+            <a href="/community/promotionBoard">목록으로 돌아가기</a>
+        </article>
+
+        <section id="createComment">
+            <form action="/community/promotionBoard/createComment" method="POST" class="comment-form">
+                <input type="hidden" name="post_id" value="{{promotion[0]}}">
+                <textarea name="content" rows="3" placeholder="댓글을 입력하세요" required></textarea>
+                <button type="submit" id="comment-submit">댓글 작성</button>
+            </form>
+        </section>
+
+        <section id="comments">
+            <h3>댓글</h3>
+            {% for comment in comment %}
+            <div class="comment">
+                <p>작성자:{{comment[1]}}</p>
+                <p>내용: {{comment[2]}}</p>
+                <p>작성일: {{comment[3]}}</p>
+                <p class="like-click">
+                    <button id="like-button" onclick="likeComment('{{ comment[0] }}'); return false;">좋아요</button>
+                    좋아요 수: <span id="comment-like-{{comment[0]}}">{{ comment[4] }}</span>
+                </p>
+            </div>
+            {%endfor%}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

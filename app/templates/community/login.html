@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevGuard Zone - Login</title>
+    <link rel="stylesheet" href="/static/community/login.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="login-container">
+            <h1>Login</h1>
+            <form class="login-form" method="POST" action="/loginProcess">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" required placeholder="사용자 아이디를 입력하세요" />
+                <br>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required placeholder="비밀번호를 입력하세요" />
+                <br>
+                <button class="finish-button" type="submit">로그인</button>
+            </form>
+            {% if message %}
+            <div id="message">{{message}}</div>
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

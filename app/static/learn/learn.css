@@ -1,0 +1,161 @@
+/* Reset and general styling */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+
+/* Header 스타일 */
+header {
+    width: 100%;
+    background-color: #021A4A;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+    padding: 5px 15px;
+
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.container h1 {
+    font-size: 1.8rem;
+    color: #283593;
+    margin-bottom: 1rem;
+}
+
+.container h2 {
+    font-size: 1.5rem;
+    color: #283593;
+    margin-bottom: 1rem;
+}
+
+.container p,
+.container ul {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+.container ul {
+    margin-top: 1rem;
+    padding-left: 1rem;
+}
+
+.container ul li {
+    list-style-type: disc;
+    margin-bottom: 0.5rem;
+}
+
+.container ul li strong {
+    color: #283593;
+}
+
+.container ul li a {
+    color: #1e88e5;
+    text-decoration: none;
+}
+
+.container ul li a:hover {
+    text-decoration: underline;
+}
+
+.container img {
+    width: 100%;
+    /* 컨테이너에 맞춰 이미지를 조정 */
+    max-width: 100%;
+    height: auto;
+}
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}
+
+.vulnerability-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 20px;
+}
+
+.vulnerability-table th,
+.vulnerability-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.vulnerability-table th {
+    background-color: #2f3550;
+    color: #fff;
+    font-weight: bold;
+}
+
+.vulnerability-table td a {
+    color: #2f6fc8;
+    /* 링크 색상 */
+    text-decoration: none;
+}
+
+.vulnerability-table tbody tr:nth-child(even) {
+    background-color: #f4f4f9;
+}
+
+.vulnerability-table tbody tr:hover {
+    background-color: #e9ecef;
+}

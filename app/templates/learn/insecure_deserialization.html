@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insecure Deserialization</title>
+    <link rel="stylesheet" href="/static/learn/insecure_deserialization.css"> <!-- CSS 파일 링크 -->
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <h1>Insecure Deserialization</h1>
+            <section>
+                <h2>1. Insecure Deserialization이란?</h2>
+                <p>Insecure Deserialization은 신뢰할 수 없는 소스에서 받은 데이터를 역직렬화할 때 발생하는 보안 취약점입니다. 역직렬화는 직렬화된 데이터를 원래의 객체 형태로
+                    복원하는 과정으로, 악의적인 사용자가 조작한 데이터를 수신할 경우 시스템의 동작을 위협받게 됩니다. 이러한 공격은 주로 Java, PHP, Python 등 여러 프로그래밍 언어에서
+                    발생할 수 있습니다.</p>
+            </section>
+
+            <section>
+                <h2>2. 위험성</h2>
+                <p>Insecure Deserialization의 주요 위험성은 다음과 같습니다:</p>
+                <ul>
+                    <li><strong>1 .임의 코드 실행:</strong> 공격자는 악성 페이로드를 포함한 직렬화된 데이터를 전송하여 서버에서 임의의 코드를 실행할 수 있습니다.</li>
+                    <li><strong>2. 데이터 무결성 손상:</strong> 악의적인 사용자가 데이터 구조를 변조하여 데이터 무결성을 훼손할 수 있습니다.</li>
+                    <li><strong>3. 서비스 거부 공격:</strong> 특정 객체를 역직렬화하여 시스템 리소스를 고갈시키거나 비정상적인 동작을 유도할 수 있습니다.</li>
+                    <li><strong>4. 정보 유출:</strong> 민감한 정보가 포함된 객체가 노출될 수 있으며, 이를 통해 추가적인 공격이 가능해질 수 있습니다.</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>3. 취약점 예시</h2>
+                <p>아래 코드는 Python에서 pickle을 사용해 직렬화된 객체를 역직렬화하는 예제입니다. 신뢰할 수 없는 데이터로 역직렬화를 수행하면 공격자가 악성 객체를 삽입할 위험이 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+import pickle
+
+class User:
+    def __init__(self, username):
+        self.username = username
+
+    def __repr__(self):
+        return f"User({self.username})"
+
+# 역직렬화를 수행하는 함수
+def load_user_data(serialized_data):
+    return pickle.loads(serialized_data)
+
+# 안전하지 않은 예시
+# 악의적인 공격자가 조작된 serialized_data를 전송할 경우 악성 코드가 실행될 수 있음
+serialized_data = b"YOUR_SERIALIZED_DATA_HERE"
+user_data = load_user_data(serialized_data)
+print(user_data)
+                </code>
+                </pre>
+                </div>
+                <h2>취약점 설명</h2>
+                <p>
+                    위 코드에서 <code>pickle.loads</code>를 사용하여 데이터를 역직렬화할 때, 공격자가 <code>serialized_data</code>를 조작하여 악성 객체를
+                    전송할 수 있습니다. 이를 통해 공격자는 시스템에서 임의의 코드를 실행하거나 데이터를 탈취할 수 있습니다. 신뢰할 수 없는 데이터를 역직렬화할 때는
+                    <code>pickle</code> 대신 안전한 직렬화 방법을 사용하거나 데이터 검증 절차를 강화해야 합니다.
+                </p>
+
+
+            </section>
+
+            <section>
+                <h2>4. 방어 방법</h2>
+                <p>Insecure Deserialization을 방어하기 위한 몇 가지 방법은 다음과 같습니다:</p>
+                <p>주요 예방 방법과 함께 코드 예시를 통해 설명합니다.</p>
+
+                <h3>1. 신뢰할 수 없는 데이터 역직렬화 방지</h3>
+                <p>
+                    신뢰할 수 없는 데이터로부터 직접 역직렬화를 수행하지 않도록 하며, 반드시 필요한 경우에만 역직렬화를 진행합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+<code>
+# 신뢰할 수 없는 데이터를 역직렬화하지 않고 직접 접근하지 않도록 설계
+def load_user_data(serialized_data, trusted=False):
+    if trusted:
+        return pickle.loads(serialized_data)
+    else:
+        raise ValueError("신뢰할 수 없는 데이터는 역직렬화할 수 없습니다.")
+</code>
+</pre>
+                </div>
+
+                <h3>2. JSON 등 안전한 데이터 형식 사용</h3>
+                <p>
+                    <code>pickle</code>과 같이 실행 가능한 객체를 직렬화하는 대신, JSON과 같은 안전한 형식을 사용하여 객체를 직렬화 및 역직렬화합니다. JSON은 데이터를 문자열
+                    형태로 직렬화하므로 악성 코드를 포함할 수 없습니다.
+                </p>
+
+                <div class="code-block">
+                    <pre>
+<code>
+import json
+
+class User:
+    def __init__(self, username):
+        self.username = username
+
+    def to_json(self):
+        return json.dumps({"username": self.username})
+
+    @staticmethod
+    def from_json(data):
+        obj = json.loads(data)
+        return User(obj["username"])
+
+# JSON을 사용한 직렬화 및 역직렬화 예시
+user = User("Alice")
+serialized_data = user.to_json()
+print("직렬화된 데이터:", serialized_data)
+
+# 안전하게 역직렬화
+user_data = User.from_json(serialized_data)
+print("복원된 사용자 데이터:", user_data.username)
+</code>
+</pre>
+                </div>
+
+                <h3>3. 서명된 데이터 사용</h3>
+                <p>
+                    직렬화된 데이터에 서명하여 데이터가 변조되지 않았음을 확인하는 방법도 예방에 유용합니다. 예를 들어, HMAC 서명을 추가하여 데이터의 무결성을 검증할 수 있습니다.
+                </p>
+
+                <div class="code-block">
+                    <pre>
+<code>
+import hmac
+import hashlib
+
+SECRET_KEY = b'secret_key'
+
+def sign_data(data):
+    return hmac.new(SECRET_KEY, data.encode(), hashlib.sha256).hexdigest()
+
+def verify_data(data, signature):
+    return hmac.compare_digest(sign_data(data), signature)
+
+# 예시 데이터와 서명 생성
+data = "user_data"
+signature = sign_data(data)
+print("서명:", signature)
+
+# 서명 검증
+if verify_data(data, signature):
+    print("데이터가 신뢰할 수 있습니다.")
+else:
+    print("데이터가 변조되었습니다.")
+</code>
+</pre>
+                </div>
+                <p>이 방법들을 통해 역직렬화 시 발생할 수 있는 보안 취약점을 예방할 수 있습니다.</p>
+
+            </section>
+
+            <section id="conclusion">
+                <h2>결론</h2>
+                <p>Insecure Deserialization은 심각한 보안 취약점이며, 이를 방지하기 위해 개발자는 신뢰할 수 없는 데이터를 처리할 때 항상 주의해야 합니다. 안전한 직렬화 및
+                    역직렬화 방법을 적용하여, 이러한 취약점을 미연에 방지하는 것이 중요합니다. 웹 애플리케이션의 보안을 강화하기 위해 정기적인 코드 리뷰와 보안 테스트를 수행하는 것도 추천합니다.
+                </p>
+            </section>
+
+        </div>
+
+        <aside class="sidebar">
+            <ul>
+                <li>1. 취약점 소개</li>
+                <li>2. 위험성</li>
+                <li>3. 취약점 예시</li>
+                <li>4. 방어 방법</li>
+                <br><br>
+                <a href="/learn">취약점 목록으로 돌아가기</a>
+            </ul>
+        </aside>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

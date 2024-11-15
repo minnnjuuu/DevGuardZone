@@ -1,0 +1,199 @@
+/* insecure_deserialization.css */
+
+/* 기본 스타일 설정 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+/* Header 스타일 */
+header {
+    width: 100%;
+    background-color: #021A4A;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+    padding: 5px 15px;
+
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+/* 메인 콘텐츠 스타일 */
+main {
+    display: flex;
+    max-width: 90%;
+    /* 최대 너비 설정 */
+    margin: 20px auto 20px 10px;
+    /* 페이지 중앙 정렬 */
+    padding: 10px;
+}
+
+section {
+    border-bottom: 2px solid navy;
+    /* 남색 가로줄 추가 */
+    padding-bottom: 10px;
+    /* 가로줄과 내용 사이 간격 */
+    margin-bottom: 20px;
+    /* 다음 요소와의 간격 */
+}
+
+.content {
+    flex: 2;
+    /* 메인 콘텐츠의 비율 */
+    padding-right: 20px;
+    /* 오른쪽 여백 */
+}
+
+.content h1 {
+    font-size: 28px;
+    /* 제목 크기 */
+    margin-bottom: 20px;
+    /* 제목 아래 여백 */
+}
+
+.content section h2 {
+    font-size: 22px;
+    /* 섹션 제목 크기 */
+    color: #1b3c71;
+    /* 섹션 제목 색상 */
+    margin-bottom: 10px;
+    /* 섹션 제목 아래 여백 */
+}
+
+.content section p {
+    font-size: 16px;
+    /* 본문 텍스트 크기 */
+    line-height: 1.6;
+    /* 줄 높이 설정 */
+    margin-bottom: 20px;
+    /* 본문 아래 여백 */
+}
+
+.code-block {
+    background-color: #f4f4f4;
+    border-left: 5px solid #6a5acd;
+    overflow-x: auto;
+    border-radius: 5px;
+}
+
+.code-block pre {
+    margin: 5px;
+    padding-left: 15px;
+}
+
+.code-block code {
+    font-size: 1opx;
+    font-family: Consolas, monospace;
+}
+
+ul {
+    list-style-type: none;
+    /* 점 제거 */
+    padding-left: 0;
+    /* 기본 패딩 제거 */
+}
+
+/* 사이드바 스타일 */
+.sidebar {
+    flex: 1;
+    /* 사이드바의 비율 */
+    border-left: 2px solid #6a5acd;
+    /* 사이드바 왼쪽 테두리 */
+    padding-left: 20px;
+    /* 사이드바 왼쪽 패딩 */
+}
+
+.sidebar ul {
+    list-style-type: none;
+    /* 리스트 스타일 제거 */
+    padding: 10px 0;
+    /* 사이드바 리스트 패딩 */
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+    /* 사이드바 항목 아래 여백 */
+    font-size: 1.1rem;
+    /* 사이드바 항목 폰트 크기 */
+    color: #333;
+    /* 사이드바 텍스트 색상 */
+}
+
+/* 링크 스타일 */
+a {
+    color: #1e88e5;
+    /* 기본 링크 색상 */
+    text-decoration: none;
+    /* 링크의 밑줄 제거 */
+}
+
+a:hover {
+    text-decoration: underline;
+    /* 링크 호버 시 밑줄 추가 */
+}
+
+/* 결론 섹션 스타일 */
+#conclusion {
+    margin-top: 40px;
+    /* 결론 섹션 상단 여백 */
+}
+
+#conclusion h2 {
+    font-size: 24px;
+    /* 결론 섹션 제목 크기 */
+    color: #1b3c71;
+    /* 결론 섹션 제목 색상 */
+    margin-bottom: 15px;
+    /* 결론 섹션 제목 아래 여백 */
+}
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

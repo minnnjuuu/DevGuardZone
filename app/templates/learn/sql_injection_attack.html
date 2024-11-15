@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Injection Practice - Attack</title>
+    <link rel="stylesheet" href="/static/learn/sql_injection_attack.css">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="quiz-container">
+            <div class="pagination">
+                {% if type==1 %}
+                <div class="page-number activate">1</div>
+                {% else %}
+                <div class="page-number">1</div>
+                {%endif%}
+
+                {% if type==2 %}
+                <div class="page-number activate">2</div>
+                {%else%}
+                <div class="page-number">2</div>
+                {%endif%}
+
+                {%if type==3%}
+                <div class="page-number activate">3</div>
+                {%else%}
+                <div class="page-number">3</div>
+                {%endif%}
+            </div>
+            {% if type == 1 %}
+            <div class="question-box">
+                <p class="question-number">01.SQL Injection Practice - Vulnerable</p>
+                <pre># 사용자 인증을 위한 쿼리<br>"SELECT * FROM sql1 WHERE username = '{input}'"
+                </pre>
+                {% if message1 %}
+                <p>{{ message1 }}</p>
+                {% endif %}
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="1">
+                    <input type="text" name="input" required placeholder="예: ' OR '1'='1'--">
+                    <button type="submit">쿼리 제출</button>
+                </form>
+            </div>
+            <div class="answer-box">
+                <form method="POST" action="/practice/sql_injection/submit">
+                    <input type="hidden" name="type" value="1">
+                    <input type="text" name="flag" required placeholder="admin의 비밀번호를 입력하세요">
+                    <button type="submit">제출하기</button>
+                </form>
+            </div>
+            <div class="navigation-arrows">
+                <form method="GET" action="/vuln">
+                    <input type="hidden" name="no" value="1">
+                    <button type="submit" class="prev-arrow">
+                        <span>&#x2190; 설명으로 이동하기</span>
+                    </button>
+                </form>
+                {%if message1=="성공"%}
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="2">
+                    <button type="submit" class="next-arrow">
+                        <span>NEXT &#x2192;</span>
+                    </button>
+                </form>
+                {%endif%}
+            </div>
+            {% elif type == 2%}
+            <div class="question-box">
+                <p class="question-number">02.Injection Practice - 입력값 검증</p>
+                <pre># 사용자 인증을 위한 쿼리<br>"SELECT * FROM sql2 WHERE username = '{input}'"
+                    <br>BLACKLIST= ["#", "or"]
+                </pre>
+                {% if message2 %}
+                <p>{{ message2 }}</p>
+                {% endif %}
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="2">
+                    <input type="text" name="input2" required placeholder="예: ' OR 1=1--">
+                    <button type="submit">쿼리 제출</button>
+                </form>
+            </div>
+            <div class="answer-box">
+                <form method="POST" action="/practice/sql_injection/submit">
+                    <input type="hidden" name="type" value="2">
+                    <input type="text" name="flag" required placeholder="admin의 비밀번호를 입력하세요">
+                    <button type="submit">제출하기</button>
+                </form>
+            </div>
+            <div class="navigation-arrows">
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="1">
+                    <button type="submit" class="prev-arrow">
+                        <span>&#x2190; PREV</span>
+                    </button>
+                </form>
+                {%if message2=="성공"%}
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="3">
+                    <button type="submit" class="next-arrow">
+                        <span>NEXT &#x2192; </span>
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+            {%elif type == 3%}
+            <div class="question-box">
+                <p class="question-number">03.SQL Injection Practice - Prepared Statements</p>
+                <pre># 사용자 인증을 위한 쿼리<br>"SELECT * FROM sql3 WHERE username = %s"</pre>
+                {% if message3 %}
+                <p>{{ message3 }}</p>
+                {%endif%}
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="3">
+                    <input type="text" name="input3" required placeholder="예: ' OR '1'='1'">
+                    <button type="submit">쿼리 제출</button>
+                </form>
+            </div>
+            <div class="answer-box">
+                <form method="POST" action="/practice/sql_injection/submit">
+                    <input type="hidden" name="type" value="3">
+                    <input type="text" name="flag" required placeholder="admin의 비밀번호를 입력하세요">
+                    <button type="submit">제출하기</button>
+                </form>
+            </div>
+            <div class="navigation-arrows">
+                <form method="POST" action="/practice/sql_injection">
+                    <input type="hidden" name="type" value="2">
+                    <button type="submit" class="prev-arrow">
+                        <span>&#x2190; PREV</span>
+                    </button>
+                </form>
+            </div>
+            {%if plusMsg%}
+            <p>{{plusMsg}}</p>
+            <form method="GET" action="/vuln">
+                <input type="hidden" name="no" value="1">
+                <button type="submit">설명으로 이동하기</button>
+            </form>
+            {%endif%}
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

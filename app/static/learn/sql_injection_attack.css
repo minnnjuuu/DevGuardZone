@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+header {
+    width: 100%;
+    background-color: #2f3550;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navbar li a:hover {
+    color: #ffffff;
+}
+
+main {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.quiz-container {
+    text-align: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.page-number {
+    width: 40px;
+    height: 40px;
+    background-color: #a3a1d8;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.activate {
+    background-color: #4e5ab3;
+    /* 더 진한 색상 */
+    font-weight: bold;
+
+}
+
+.question-box {
+    border: 2px solid #a3a1d8;
+    border-radius: 20px 20px 0 0;
+    width: 600px;
+    min-height: 200px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.question-number {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.question-box pre {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+    text-align: left;
+    font-family: monospace;
+}
+
+.question-box input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.question-box button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4e5ab3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.answer-box {
+    border: 2px solid #a3a1d8;
+    border-radius: 20px 0 0 20px;
+    width: 400px;
+    min-height: 80px;
+    margin: 10px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.answer-box input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.answer-box button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4e5ab3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.navigation-arrows {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    /* 양 끝에 배치되도록 전체 폭 사용 */
+}
+
+.prev-arrow,
+.next-arrow {
+    background: none;
+    /* 배경 없음 */
+    border: none;
+    /* 테두리 없음 */
+    font-size: 24px;
+    /* 화살표 크기 조정 */
+    cursor: pointer;
+    /* 포인터 커서 */
+    color: #000;
+    /* 화살표 색상 */
+}
+
+.message {
+    font-size: 1rem;
+    color: #4e5ab3;
+    margin-top: 10px;
+}
+
+/* 폼 컨테이너 스타일 */
+form {
+    display: inline-block;
+    /* 폼을 가로로 정렬 */
+    margin: 10px;
+    /* 각 폼에 여백 추가 */
+}
+
+/* 버튼 스타일 */
+form button {
+    background-color: #a3a1d8;
+    /* 버튼 배경색 */
+    color: white;
+    /* 버튼 텍스트 색상 */
+    border: none;
+    /* 테두리 제거 */
+    padding: 10px 20px;
+    /* 버튼 내부 여백 */
+    font-size: 16px;
+    /* 폰트 크기 */
+    cursor: pointer;
+    /* 커서 포인터 */
+    border-radius: 5px;
+    /* 둥근 모서리 */
+    transition: background-color 0.3s ease;
+    /* 배경색 변경 효과 */
+}
+
+
+/* 버튼 클릭 시 효과 */
+form button:active {
+    background-color: #4e5ab3;
+    /* 클릭 시 배경색 */
+    transform: scale(0.98);
+    /* 클릭 시 약간 축소 */
+}
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

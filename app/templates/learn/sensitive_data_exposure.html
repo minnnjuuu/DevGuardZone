@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>민감한 데이터 노출 (Sensitive Data Exposure)</title>
+    <link rel="stylesheet" href="/static/learn/sensitive_data_exposure.css">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">Dev Guard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+                <li><a href="/community">Community</a></li>
+                <li><a href="/mypage">My Page</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div class="content">
+            <section id="intro">
+                <h1>7. Sensitive Data Exposure 이란?</h1>
+                <p>Sensitive Data Exposure는 민감한 데이터가 암호화되지 않거나 적절히 보호되지 않아 공격자가 이를 쉽게 접근할 수 있는 취약점을 의미합니다. 이러한 데이터에는 개인
+                    정보,
+                    금융 정보, 건강 정보 등이 포함될 수 있습니다.</p>
+            </section>
+
+            <section>
+                <h2>원인</h2>
+                <ul>
+                    <li>데이터 암호화 미비: 데이터가 암호화되지 않으면 공격자가 이를 쉽게 읽을 수 있습니다.</li>
+                    <li>취약한 암호화 알고리즘 사용: 오래되거나 잘 알려진 취약점을 가진 암호화 알고리즘을 사용하면 데이터가 쉽게 해독될 수 있습니다.</li>
+                    <li>안전하지 않은 데이터 저장: 민감한 데이터를 안전하지 않은 위치에 저장하면 물리적 접근이나 시스템 침입을 통해 데이터가 노출될 수 있습니다.</li>
+                    <li>전송 중 데이터 보호 미흡: 데이터가 전송되는 동안 암호화되지 않으면 네트워크 스니핑 공격에 노출될 수 있습니다.</li>
+                </ul>
+            </section>
+
+            <section id="examples">
+                <h2>사례</h2>
+                <p>
+                    Sensitive Data Exposure는 애플리케이션이 적절한 보호 없이 민감한 정보를 저장하거나 전송할 때 발생하는 취약점입니다. 이로 인해 공격자는 중요한 데이터를 쉽게
+                    접근할 수 있으며, 개인 정보 유출, 재정 정보 도난 등의 심각한 피해가 발생할 수 있습니다.
+                </p>
+
+                <h3>1. 데이터 암호화 부족</h3>
+                <p>
+                    데이터가 평문(Plain Text)으로 저장되거나 전송되면 공격자는 데이터에 쉽게 접근하여 내용을 확인할 수 있습니다. 특히 비밀번호, 신용카드 정보와 같은 민감한 정보는 암호화
+                    없이 저장되면 위험에 노출됩니다. 예를 들어, 아래와 같이 사용자의 비밀번호를 암호화 없이 데이터베이스에 저장하는 경우 문제가 발생할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 암호화되지 않은 비밀번호 저장 예시 (Python)
+import sqlite3
+
+def store_password(username, password):
+    connection = sqlite3.connect("user_data.db")
+    cursor = connection.cursor()
+    cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+    connection.commit()
+    connection.close()
+
+store_password("user1", "mypassword")  # 평문으로 비밀번호 저장
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 사용자의 비밀번호가 암호화되지 않은 상태로 데이터베이스에 저장되고 있습니다. 만약 데이터베이스가 노출된다면, 모든 비밀번호가 유출될 위험이 있습니다.
+                </p>
+
+                <h3>2. 불충분한 전송 계층 보안</h3>
+                <p>
+                    전송 계층에서 데이터 보호가 충분히 이루어지지 않으면, 공격자가 네트워크 트래픽을 가로채 민감한 정보를 탈취할 수 있습니다. HTTPS 대신 HTTP를 사용하는 경우 이러한 문제가
+                    발생할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 불충분한 전송 계층 보안 예시
+import requests
+
+# HTTPS가 아닌 HTTP를 통한 로그인 요청
+response = requests.post("http://example.com/login", data={"username": "user1", "password": "mypassword"})
+print(response.text)
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서 HTTP를 사용하여 로그인 요청을 전송하고 있어, 네트워크 상에서 이 정보를 가로챌 수 있는 위험이 존재합니다. HTTPS를 사용하지 않으면 데이터가 암호화되지 않은
+                    상태로 전송되어 민감한 정보가 노출됩니다.
+                </p>
+                <h3>3. 불안전한 암호화 방식 사용</h3>
+                <p>
+                    오래되거나 취약한 암호화 방식을 사용할 경우, 공격자는 암호화된 데이터를 복호화할 수 있습니다. 예를 들어, MD5와 같은 약한 해시 알고리즘을 사용하여 비밀번호를 저장할 경우,
+                    무차별 대입 공격(Brute Force Attack)이나 레인보우 테이블 공격으로 쉽게 복호화할 수 있습니다.
+                </p>
+
+                <div class="code-block">
+                    <pre>
+                <code>
+# MD5와 같은 약한 해시 알고리즘 사용 예시 (Python)
+import hashlib
+
+def store_password_md5(username, password):
+    hashed_password = hashlib.md5(password.encode()).hexdigest()
+    # 해시된 비밀번호를 데이터베이스에 저장 (MD5는 안전하지 않음)
+    print(f"Username: {username}, Hashed Password: {hashed_password}")
+
+store_password_md5("user1", "mypassword")
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 MD5 알고리즘을 사용하여 비밀번호를 해시 처리하고 있습니다. MD5는 충돌이 쉽게 발생하고, 무차별 대입 공격에 취약하므로 민감한 데이터를 안전하게 보호하지
+                    못합니다.
+                </p>
+
+                <h3>4. 민감한 데이터 과도 노출</h3>
+                <p>
+                    애플리케이션이 불필요하게 많은 민감한 정보를 화면에 표시하거나 API 응답에 포함시키는 경우, 공격자가 이를 이용할 수 있습니다. 특히 신용카드 번호나 개인 정보를 과도하게
+                    노출하는 것은 큰 보안 위험을 초래합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 과도한 데이터 노출 예시 (Flask)
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route("/user/<username>")
+def get_user_data(username):
+    user_data = {
+        "username": username,
+        "email": "user@example.com",
+        "phone": "010-1234-5678",
+        "credit_card": "1234-5678-1234-5678",  # 신용카드 정보 노출
+    }
+    return jsonify(user_data)
+
+if __name__ == "__main__":
+    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 API 응답에 사용자의 신용카드 정보까지 포함시키고 있습니다. 이는 공격자가 민감한 정보를 쉽게 탈취할 수 있게 하므로, 반드시 노출될 필요가 없는 데이터는 제외해야
+                    합니다.
+                </p>
+
+                <h3>5. 서버 로그에 민감한 데이터 저장</h3>
+                <p>
+                    애플리케이션이 로그에 민감한 데이터를 기록하는 경우, 로그 파일이 탈취되면 민감한 정보가 유출될 수 있습니다. 특히 오류 발생 시, 전체 요청 내용을 로그에 기록할 경우 비밀번호나
+                    세션 토큰 등의 민감한 정보가 노출될 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 서버 로그에 민감한 데이터 저장 예시
+import logging
+
+logging.basicConfig(filename="server.log", level=logging.INFO)
+
+def login(username, password):
+    logging.info(f"User {username} attempted login with password: {password}")
+    # 로그에 비밀번호가 기록되는 보안 취약점 발생
+    return "로그인 시도"
+
+login("user1", "mypassword")
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 비밀번호가 로그에 그대로 기록되고 있습니다. 이로 인해 로그 파일이 유출될 경우, 공격자가 민감한 데이터를 쉽게 확인할 수 있습니다.
+                </p>
+            </section>
+
+            <section id="prevention">
+                <h2>방어 방법</h2>
+                <p>
+                    Sensitive Data Exposure 취약점은 민감한 정보가 적절히 보호되지 않아서 발생하는 보안 문제입니다. 이 취약점을 방어하려면 다양한 방법을 적용해야 합니다.
+                    여기에서는 이를 방어하기 위한 주요 방법을 코드 예시와 함께 설명합니다.
+                </p>
+
+                <h3>1. 데이터 암호화</h3>
+                <p>
+                    민감한 데이터는 저장 및 전송 시 반드시 암호화되어야 합니다. 암호화된 데이터를 저장하면, 데이터베이스가 유출되더라도 정보가 보호됩니다. 또한, 데이터 전송 시에는 SSL/TLS
+                    프로토콜을 사용하여 HTTPS로 암호화된 연결을 제공해야 합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 데이터 암호화 저장 예시 (Python)
+from cryptography.fernet import Fernet
+
+# 암호화 키 생성
+key = Fernet.generate_key()
+cipher = Fernet(key)
+
+# 비밀번호 암호화
+password = "mypassword"
+encrypted_password = cipher.encrypt(password.encode())
+
+# 암호화된 비밀번호 저장
+print("암호화된 비밀번호:", encrypted_password)
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 `cryptography` 라이브러리를 사용하여 비밀번호를 암호화한 후 저장합니다. 이처럼 민감한 데이터를 암호화하여 안전하게 보호할 수 있습니다.
+                </p>
+
+                <h3>2. 안전한 전송 계층 보안 사용</h3>
+                <p>
+                    전송 계층에서 민감한 정보를 보호하려면 HTTPS를 사용하여 데이터를 암호화해야 합니다. 이는 HTTP를 통해 전송된 데이터를 중간에서 가로채거나 수정할 수 없게 만들어 주며,
+                    클라이언트와 서버 간의 안전한 연결을 보장합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# HTTPS 사용 예시 (Flask)
+from flask import Flask, request, jsonify
+from flask_sslify import SSLify
+
+app = Flask(__name__)
+sslify = SSLify(app)
+
+@app.route("/login", methods=["POST"])
+def login():
+    username = request.form["username"]
+    password = request.form["password"]
+    # 비밀번호 확인 및 로그인 처리 로직
+    return jsonify(message="로그인 성공")
+
+if __name__ == "__main__":
+    app.run(ssl_context='adhoc')  # SSL/TLS로 서버를 실행하여 HTTPS 사용
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 Flask와 `flask_sslify`를 사용하여 HTTPS를 통해 민감한 정보를 안전하게 전송하는 예시를 보여줍니다. SSL/TLS 암호화를 통해 전송 중인
+                    데이터를 보호할 수 있습니다.
+                </p>
+
+                <h3>3. 안전한 암호화 알고리즘 사용</h3>
+                <p>
+                    오래되거나 취약한 해시 알고리즘(MD5, SHA1 등)을 사용하지 말고, 보다 안전한 알고리즘인 PBKDF2, bcrypt, scrypt 등을 사용하여 비밀번호와 같은 민감한
+                    데이터를 안전하게 처리해야 합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 안전한 해시 알고리즘 사용 예시 (Python, bcrypt)
+import bcrypt
+
+# 비밀번호 해싱
+password = "mypassword"
+hashed_password = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+
+# 비밀번호 검증
+if bcrypt.checkpw(password.encode(), hashed_password):
+    print("비밀번호가 일치합니다.")
+else:
+    print("비밀번호가 일치하지 않습니다.")
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 `bcrypt` 라이브러리를 사용하여 비밀번호를 안전하게 해시한 후 검증하는 예시를 보여줍니다. bcrypt는 무차별 대입 공격을 방지하기 위해 설계된 강력한
+                    알고리즘입니다.
+                </p>
+
+                <h3>4. 민감한 데이터 노출 방지</h3>
+                <p>
+                    불필요하게 민감한 정보를 API 응답이나 화면에 표시하지 않도록 해야 합니다. 예를 들어, 신용카드 번호나 주민등록번호를 반환하는 API는 이러한 정보를 포함하지 않도록 처리해야
+                    합니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 민감한 정보 노출 방지 예시 (Flask)
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route("/user/<username>")
+def get_user_data(username):
+    # 민감한 정보를 포함하지 않도록 수정
+    user_data = {
+        "username": username,
+        "email": "user@example.com"
+    }
+    return jsonify(user_data)
+
+if __name__ == "__main__":
+                    app.run()
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 사용자 정보 중 민감한 데이터를 포함하지 않도록 수정하여 반환하는 방법을 보여줍니다. 신용카드 번호나 비밀번호와 같은 민감한 정보는 절대로 반환해서는 안 됩니다.
+                </p>
+
+                <h3>5. 로그에 민감한 정보 기록하지 않기</h3>
+                <p>
+                    애플리케이션의 로그에 비밀번호나 세션 토큰, 신용카드 정보와 같은 민감한 데이터를 기록하지 않도록 해야 합니다. 민감한 정보가 로그에 기록되면 공격자가 이를 악용할 수 있습니다.
+                </p>
+                <div class="code-block">
+                    <pre>
+                <code>
+# 민감한 정보 로그에 기록하지 않기 예시 (Python)
+import logging
+
+logging.basicConfig(filename="server.log", level=logging.INFO)
+
+def login(username, password):
+    # 로그에 비밀번호 기록하지 않음
+    logging.info(f"User {username} attempted login.")
+    return "로그인 시도"
+
+login("user1", "mypassword")  # 비밀번호는 로그에 기록되지 않음
+                </code>
+                </pre>
+                </div>
+                <p>
+                    위 코드에서는 로그인 시 로그에 비밀번호를 기록하지 않도록 하여, 민감한 정보가 유출되지 않도록 처리하는 방법을 보여줍니다.
+                </p>
+
+            </section>
+            <a href="/learn">취약점 목록으로 돌아가기</a>
+        </div>
+        <aside class="sidebar">
+            <ul>
+                <li>1. 취약점 소개</li>
+                <li>2. 주요 원인</li>
+                <li>3. 예시</li>
+                <li>4. 예방 방법</li>
+            </ul>
+            <br><br>
+            <a href="/learn">취약점 목록으로 돌아가기</a>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>

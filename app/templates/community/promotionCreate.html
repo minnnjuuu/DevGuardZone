@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홍보글 작성</title>
+    <link rel="stylesheet" href="/static/community/promotionCreate.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <h2>홍보글 작성</h2>
+        <form action="/community/promotionBoard/createPost" method="POST" enctype="multipart/form-data">
+            <label for="title">제목: </label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="content">내용: </label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+
+            <label for="image">이미지: </label>
+            <input type="file" id="image" name="image">
+
+            <button type="submit">게시물 작성</button>
+        </form>
+
+        <a href="/community/promotionBoard">목록으로 돌아가기</a>
+
+
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

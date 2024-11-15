@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>공지사항 작성</title>
+    <link rel="stylesheet" href="/static/community/noticeCreate.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <h2>공지사항 작성</h2>
+        <form id="noticeForm" action="/community/noticeBoard/create" method="POST">
+            <label for="title">제목</label>
+            <input type="text" name="title" required>
+            <br>
+            <label for="content">내용</label>
+            <textarea name="content" required></textarea>
+            <br>
+            <button type="submit">작성</button>
+        </form>
+
+        <a href="/community/noticeBoard">목록으로 이동하기</a>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+<script>
+    document.getElementById('noticeForm').addEventListener('submit', function (event) {
+        const title = document.getElementById('title').value.trim();
+        const content = document.getElementById('content').value.trim();
+
+        if (!title || !content) {
+            alert('제목과 내용을 모두 입력해주세요.');
+            event.preventDefault(); // 폼 제출 막기
+        }
+    });
+</script>
+
+</html>

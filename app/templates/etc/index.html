@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevGuard Zone</title>
+    <link rel="stylesheet" href="/static/etc/index.css">
+    <link href="https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&family=Caveat:wght@400..700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <ul class="navbar">
+                <li class="brand"><a href="/">DevGuard Zone</a></li>
+                <div class="nav-links">
+                    <li><a href="/">Home</a></li>
+                    {% if session.user %}
+                    <li><a href="/logout">Logout</a></li>
+                    <li><a href="/mypage">Mypage</a></li>
+                    {% else %}
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    {% endif %}
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="hero">
+        <h1>DevGuard Zone</h1>
+        <p>:초보 개발자들을 위한 사이버 보안 교육 커뮤니티</p>
+    </div>
+
+    <nav class="main-nav">
+        <a href="/background">about</a>
+        <a href="/learn">learn</a>
+        <a href="/community">community</a>
+        <a href="/mypage">mypage</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        <section class="introduction">
+            <h2>Introduction.</h2>
+            <div class="intro-box"><strong>DevGuard Zone</strong>은 초보 개발자들이 보안에 대한 핵심 개념을 쉽게 이해하고 실습할 수 있도록 설계된 교육
+                플랫폼입니다.
+                <br>OWASP Top 10을 기반으로, 실전과 유사한 문제를 풀면서 학습할 수 있는 환경을 제공합니다.
+                <br>보안의 기본 원리부터 취약점 방어 방법까지 체계적으로 익히고, 안전한 코드를 작성하는 개발자로 성장하세요
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="announcement">
+                <h2>Announcement</h2>
+                <ul>
+                    {%for notice in notice%}
+
+                    <li><a
+                            href="/community/noticeBoard/{{notice[0]}}">{{notice[1]}}[{{notice[3]}}]</a><span>{{notice[2]}}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="reference-materials">
+                <h2>Reference materials</h2>
+                <div class="reference-grid">
+                    <img src="/static/img/dreamhack.png" alt="Dreamhack Logo">
+                    <img src="/static/img/hackthebox.jpeg" alt="Hack the Box Logo">
+                    <img src="/static/img/mdnWebDocs.png" alt="MDN Logo">
+                    <img src="/static/img/owasp.jpeg" alt="OWASP Logo">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

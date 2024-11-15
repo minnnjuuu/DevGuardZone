@@ -1,0 +1,213 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #2f3550;
+    padding: 15px 20px;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    border-bottom: 1px solid white;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}
+
+.navbar {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.navbar a:hover {
+    color: #1a73e8;
+}
+
+main {
+    text-align: center;
+    max-width: 90%;
+    padding: 20px;
+    margin: 20px auto;
+    margin: auto;
+}
+
+h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    color: #1a73e8;
+}
+
+.reason-title {
+    font-size: 20px;
+    /* 글자 크기 증가 */
+    font-weight: bold;
+    /* 굵은 폰트 */
+    color: black;
+    /* 강조 색상 */
+    text-align: left;
+    /* 중앙 정렬 */
+    margin-top: 20px;
+    padding-bottom: 10px;
+    position: relative;
+}
+
+.reason-title::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* 강조선이 왼쪽으로 더 길게 이어지도록 설정 */
+    height: 2px;
+    background-color: black;
+
+}
+
+.reason-section,
+.goal-section {
+    margin-bottom: 50px;
+}
+
+.reason-section h2 {
+    color: #1a73e8;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.first-content p {
+    font-size: 18px;
+    /* 글씨 크기 증가 */
+    line-height: 1.8;
+    /* 가독성을 위한 줄 간격 */
+    color: #555;
+    text-align: left;
+}
+
+.second-content,
+.third-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 20px;
+    /* 이미지와 텍스트 간의 간격 */
+    text-align: left;
+}
+
+.text-content {
+    font-weight: bold;
+    font-size: 25px;
+    flex: 1;
+    /* 텍스트 영역을 차지 */
+    display: flex;
+    flex-direction: column;
+    /* p 태그들을 세로로 나열 */
+    gap: 10px;
+    /* p 태그 사이의 간격 */
+    text-align: left;
+}
+
+
+.second-content img {
+    width: 70%;
+    /* 이미지 크기 조정 */
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* 이미지 그림자 추가 */
+    float: right;
+    margin-left: 20px;
+}
+
+
+.third-content img {
+    width: 70%;
+    max-width: 500px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    float: left;
+    margin-right: 20px;
+}
+
+.second-content p,
+.third-content p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    flex: 1;
+    /* 텍스트가 이미지와 나란히 정렬되도록 설정 */
+}
+
+.goal-section h2 {
+    color: #1a73e8;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #2f3550;
+}
+
+.goal-content p {
+    font-size: 18px;
+    /* 글씨 크기 설정 */
+    text-align: left;
+    /* 왼쪽 정렬 */
+    color: #555;
+    padding-left: 5%;
+    padding-bottom: 10px;
+    /* 밑줄과 텍스트 간격 */
+    margin-bottom: 10px;
+    /* 각 줄 간격 */
+}
+
+.goal-content p strong {
+    color: #2f3550;
+    /* 강조 색상 */
+    font-size: 25px;
+    /* 글자 크기 증가 */
+    font-weight: bold;
+    /* 굵은 폰트 */
+    margin-right: 5px;
+    /* 숫자와 텍스트 사이의 간격 */
+}
+
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevGuard Zone - Registration</title>
+    <link rel="stylesheet" href="/static/community/register.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+    <main>
+        <div class="register-container">
+            <h1>Registeration</h1>
+            <form class="registration-form" method="POST" action="/register">
+                <label for="username">아이디</label>
+                <input type="text" id="username" name="username" required placeholder="사용할 ID를 입력하세요">
+                <br>
+                <label for="password">비밀번호</label>
+                <input type="password" id="password" name="password" required placeholder="사용할 비밀번호를 입력하세요">
+                <br>
+                <label for="confirm-password">비밀번호 확인</label>
+                <input type="password" id="confirm-password" name="confirm-password" required
+                    placeholder="사용할 비밀번호를 한번 더 입력하세요">
+                <br>
+
+                <button class="finish-button" type="submit">회원가입</button>
+            </form>
+            {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+            {% endif %}
+
+            {% if success_message %}
+            <div class="success_message">{{success_message}}</div>
+            <a class="move-login" href="/login">Login</a> <!--GET 요청-->
+            {% endif %}
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

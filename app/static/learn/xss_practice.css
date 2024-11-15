@@ -1,0 +1,197 @@
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+}
+
+
+/* Header 스타일 */
+header {
+    width: 100%;
+    background-color: #2f3550;
+    padding: 10px 0;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.brand a {
+    font-family: 'Agdasima', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.navbar {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar li {
+    margin-right: 20px;
+}
+
+.navbar li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+.navbar li a:hover {
+    color: #ffffff;
+}
+
+
+/* 문제 박스 스타일 */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.quiz-container {
+    text-align: center;
+}
+
+.quiz-title {
+    font-size: 28px;
+    color: #3b4c85;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.question-box {
+    border: 2px solid #a3a1d8;
+    border-radius: 20px 20px 0 0;
+    width: 600px;
+    min-height: 200px;
+    margin: 20px auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.question-number {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.question-info {
+    font-size: 16px;
+    color: #555;
+    margin-top: 10px;
+}
+
+.answer-box {
+    margin-top: 20px;
+}
+
+.answer-box input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.answer-box button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #4e5ab3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.answer-box button:hover {
+    background-color: #2a3771;
+}
+
+.output {
+    font-size: 16px;
+    color: #333;
+    margin-top: 15px;
+}
+
+
+/* 폼 컨테이너 스타일 */
+form {
+    display: inline-block;
+    /* 폼을 가로로 정렬 */
+    margin: 10px;
+    /* 각 폼에 여백 추가 */
+}
+
+/* 버튼 스타일 */
+form button {
+    background-color: #a3a1d8;
+    /* 버튼 배경색 */
+    color: white;
+    /* 버튼 텍스트 색상 */
+    border: none;
+    /* 테두리 제거 */
+    padding: 10px 20px;
+    /* 버튼 내부 여백 */
+    font-size: 16px;
+    /* 폰트 크기 */
+    cursor: pointer;
+    /* 커서 포인터 */
+    border-radius: 5px;
+    /* 둥근 모서리 */
+    transition: background-color 0.3s ease;
+    /* 배경색 변경 효과 */
+}
+
+
+/* 네비게이션 화살표 스타일 */
+.navigation-arrows {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.arrow-button {
+    background: none;
+    /* 배경 없음 */
+    border: none;
+    /* 테두리 없음 */
+    font-size: 24px;
+    /* 화살표 크기 조정 */
+    cursor: pointer;
+    /* 포인터 커서 */
+    color: #000;
+    /* 화살표 색상 */
+}
+
+footer {
+    background-color: #2f3550;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+    width: 100%;
+}
+
+footer p {
+    color: #FFFFFF;
+    margin: 0;
+    font-size: 16px;
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건의사항 - Dev Guard Zone</title>
+    <link rel="stylesheet" href="/static/community/suggestBoard.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-container">
+            <div class="brand"><a href="/">DevGuard Zone</a></div>
+            <ul class="navbar">
+                <li><a href="/">Home</a></li>
+                <li><a href="/learn">Learn</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1>건의사항</h1>
+        <table class="board-table">
+            <thead>
+                <tr>
+                    <th>분류</th>
+                    <th>제목</th>
+                    <th>작성일</th>
+                    <th>작성자</th>
+                    <th>관리자 답변 시간</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for suggest in suggestion %}
+                <tr>
+                    <th>{{suggest[0]}}</th>
+                    <td><a href="/community/suggestBoard/{{suggest[5]}}">{{ suggest[1] }}</a></td>
+                    <td>{{ suggest[3] }}</td>
+                    <td>{{ suggest[2] }}</td>
+                    <td>{{ suggest[4] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="/community">커뮤니티로 돌아가기</a>
+    </main>
+    <a href="/community/suggestBoard/createPost" class="write-button">글 쓰기</a>
+    <footer>
+        <p>&copy; 2024 DevGuard Zone. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
